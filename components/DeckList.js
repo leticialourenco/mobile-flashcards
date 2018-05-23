@@ -1,23 +1,64 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import * as deckActions from '../actions'
+import { lightGray, white } from '../utils/colors'
 
 class DeckList extends Component {
+    componentWillMount () {
+        this.props.actions.getDecks();
+    }
+
     render() {
+        const { decks } = this.props;
+
         return (
-            <View style={styles.container}>
-                <Text>Deck List</Text>
-            </View>
+            <ScrollView style={styles.deckContainer}>
+                { Object.keys(decks).map((key) =>
+                   <View style={styles.deckCard}>
+                       <Text>{ decks[key].title }</Text>
+                       <Text>
+                           { decks[key].questions.length }
+                           { decks[key].questions.length > 1 ? " cards" : " card"}
+                       </Text>
+                   </View>
+               )}
+            </ScrollView>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    deckContainer: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: white,
+        alignItems: 'center',
+    },
+    deckCard: {
+        flex: 1,
+        backgroundColor: lightGray,
         alignItems: 'center',
         justifyContent: 'center',
-    },
+        margin: 20,
+        marginTop: 20,
+        marginBottom: 5,
+        alignSelf: 'stretch',
+        height: 100
+    }
 })
 
-export default DeckList
+function mapStateToProps (state) {
+    return {
+        decks: state.decks
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        actions: {
+            getDecks: () => dispatch(deckActions.getDecks())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckList)

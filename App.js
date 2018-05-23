@@ -1,10 +1,17 @@
 import React from 'react'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
 import { View, StatusBar } from 'react-native'
 import { Constants } from 'expo'
-import { createBottomTabNavigator, StackNavigator } from 'react-navigation'
+import { createMaterialTopTabNavigator, createStackNavigator } from 'react-navigation'
+
+import reducer from './reducers'
+import * as deckActions from './actions'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
-import { white, blue, black } from './utils/colors'
+
+import { white, lightGray, mediumGray, blue, black } from './utils/colors'
 
 function CustomStatusBar ({backgroundColor, ...props}) {
     return (
@@ -14,7 +21,7 @@ function CustomStatusBar ({backgroundColor, ...props}) {
     )
 }
 
-const Tabs = createBottomTabNavigator({
+const Tabs = createMaterialTopTabNavigator({
     DeckList: {
         screen: DeckList,
         navigationOptions: {
@@ -32,35 +39,120 @@ const Tabs = createBottomTabNavigator({
         header: null
     },
     tabBarOptions: {
-        activeTintColor: blue,
+        activeTintColor: black,
+        labelStyle: {
+            fontSize: 12,
+            letterSpacing: 1,
+            color: black,
+        },
         style: {
-            height: 40,
-            backgroundColor: white,
-            shadowColor: 'rgba(0, 0, 0, 0.1)',
+            tintColor: black,
+            backgroundColor: lightGray,
+            shadowColor: mediumGray,
             shadowOffset: {
                 width: 0,
                 height: 6
             },
             shadowRadius: 10,
-            shadowOpacity: 1,
-            fontWeight: 500,
+            shadowOpacity: .2,
         }
     }
 })
 
-const MainNavigator = StackNavigator({
+const MainNavigator = createStackNavigator({
     Home: {
         screen: Tabs,
     }
 })
 
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk)
+);
+
 export default class App extends React.Component {
-  render() {
-    return (
-        <View style={{flex: 1}}>
-            <CustomStatusBar backgroundColor={black} barStyle="light-content" />
-            <MainNavigator />
-        </View>
-    )
-  }
+
+    componentWillMount() {
+        store.dispatch(deckActions.setDecks({decks:initialDecks}))
+    }
+
+    render() {
+        return (
+            <Provider store={store}>
+                <View style={{flex: 1}}>
+                    <CustomStatusBar backgroundColor={black} barStyle="light-content" />
+                    <MainNavigator />
+                </View>
+            </Provider>
+    )}
+}
+
+
+const initialDecks = {
+    React: {
+        title: 'React',
+        questions: [
+            {
+                question: 'What is React?',
+                answer: 'A library for managing user interfaces'
+            },
+            {
+                question: 'Where do you make Ajax requests in React?',
+                answer: 'The componentDidMount lifecycle event'
+            }
+        ]
+    },
+    JavaScript: {
+        title: 'JavaScript',
+        questions: [
+            {
+                question: 'What is a closure?',
+                answer: 'The combination of a function and the lexical environment within which that function was declared.'
+            }
+        ]
+    },
+    Redux: {
+        title: 'Redux',
+        questions: [
+            {
+                question: 'What is React?',
+                answer: 'A library for managing user interfaces'
+            },
+            {
+                question: 'Where do you make Ajax requests in React?',
+                answer: 'The componentDidMount lifecycle event'
+            }
+        ]
+    },
+    Angular: {
+        title: 'Angular',
+        questions: [
+            {
+                question: 'What is a closure?',
+                answer: 'The combination of a function and the lexical environment within which that function was declared.'
+            }
+        ]
+    },
+    nana: {
+        title: 'Nana',
+        questions: [
+            {
+                question: 'What is React?',
+                answer: 'A library for managing user interfaces'
+            },
+            {
+                question: 'Where do you make Ajax requests in React?',
+                answer: 'The componentDidMount lifecycle event'
+            }
+        ]
+    },
+    tata: {
+        title: 'Tata',
+        questions: [
+            {
+                question: 'What is a closure?',
+                answer: 'The combination of a function and the lexical environment within which that function was declared.'
+            }
+        ]
+    }
 }
