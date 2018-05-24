@@ -7,7 +7,6 @@ function decks (state = { decks: {} }, action) {
 
         default:
             return state;
-
     }
 }
 

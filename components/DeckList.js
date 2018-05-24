@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
+import { Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import * as deckActions from '../actions'
-import { lightGray, white } from '../utils/colors'
+import { lightGray, white, mediumGray } from '../utils/colors'
 
 class DeckList extends Component {
     componentWillMount () {
@@ -20,10 +20,15 @@ class DeckList extends Component {
                        onPress={() => this.props.navigation.navigate('DeckSingle', { ...decks[key] })}
                        style={styles.deckCard}
                    >
-                       <Text>{ decks[key].title }</Text>
+                       <Text style={styles.deckTitle}>
+                           { decks[key].title }
+                       </Text>
+
                        <Text>
-                           { decks[key].questions.length }
-                           { decks[key].questions.length > 1 ? " cards" : " card"}
+                           <Text style={styles.deckCounter}>
+                               { decks[key].questions.length }
+                           </Text>
+                           { decks[key].questions.length > 1 ? " questions" : " question"}
                        </Text>
                    </TouchableOpacity>
                )}
@@ -37,18 +42,35 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: white,
         alignItems: 'center',
+        paddingTop: 20,
     },
     deckCard: {
         flex: 1,
+        height: 100,
+        width: 330,
+        margin: 15,
+        marginBottom: 5,
         backgroundColor: lightGray,
+        borderRadius: 5,
+        shadowColor: mediumGray,
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowRadius: 2,
+        shadowOpacity: .2,
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 20,
-        marginTop: 20,
-        marginBottom: 5,
-        alignSelf: 'stretch',
-        height: 100
-    }
+    },
+    deckTitle: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    deckCounter: {
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
 })
 
 function mapStateToProps (state) {

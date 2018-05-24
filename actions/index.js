@@ -1,4 +1,4 @@
-import * as STORAGE from '../utils/storage'
+import * as STORAGE from '../utils/api'
 
 export const GET_DECKS = 'GET_DECKS';
 export const SET_DECKS = 'SET_DECKS';
