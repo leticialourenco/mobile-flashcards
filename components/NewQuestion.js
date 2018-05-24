@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { lightGray, mediumGray, white } from "../utils/colors";
+import { lightGray, mediumGray } from '../utils/colors'
 
 class NewQuestion extends Component {
     render() {

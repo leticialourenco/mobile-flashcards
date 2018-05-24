@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
-import { mediumGray, black, white, lightGray } from "../utils/colors";
+import { mediumGray, lightGray } from '../utils/colors'
 
 class NewDeck extends Component {
     render() {
