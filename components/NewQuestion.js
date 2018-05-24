@@ -1,11 +1,27 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native'
 
 class NewQuestion extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text>New Question</Text>
+                <Text>Enter Question</Text>
+                <TextInput
+                    style={{height: 40, width: 300, borderColor: 'gray', borderWidth: 1}}
+                    onChangeText={(text) => this.setState({text})}
+                    value={'bla'}
+                />
+
+                <Text>Enter Answer</Text>
+                <TextInput
+                    style={{height: 40, width: 300, borderColor: 'gray', borderWidth: 1}}
+                    onChangeText={(text) => this.setState({text})}
+                    value={'bla'}
+                />
+
+                <Button
+                    title="Create"
+                />
             </View>
         );
     }

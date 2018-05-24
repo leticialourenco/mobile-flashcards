@@ -3,9 +3,13 @@ import { View, Text, StyleSheet } from 'react-native'
 
 class Quiz extends Component {
     render() {
+        const questions  = this.props.navigation.state.params;
         return (
             <View style={styles.container}>
                 <Text>Quiz</Text>
+                { Object.keys(questions).map((key) =>
+                    <Text> > { questions[key].question }</Text>
+                )}
             </View>
         );
     }

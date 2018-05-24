@@ -1,11 +1,28 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 class DeckSingle extends Component {
     render() {
+        const { title, questions } = this.props.navigation.state.params;
+
         return (
             <View style={styles.container}>
-                <Text>Deck Single</Text>
+                <Text>{ title } deck</Text>
+                <Text>
+                    { questions.length }
+                    { questions.length > 1 ? ' questions' : ' question' }
+                </Text>
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('NewQuestion', { ...this.props.navigation.params })}
+                >
+                    <Text>Add a Question</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => this.props.navigation.navigate('Quiz', { ...questions })}
+                >
+                    <Text>Start Quiz</Text>
+                </TouchableOpacity>
             </View>
         );
     }

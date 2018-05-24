@@ -10,6 +10,9 @@ import reducer from './reducers'
 import * as deckActions from './actions'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
+import DeckSingle from './components/DeckSingle'
+import NewQuestion from './components/NewQuestion'
+import Quiz from './components/Quiz'
 
 import { white, lightGray, mediumGray, blue, black } from './utils/colors'
 
@@ -62,7 +65,19 @@ const Tabs = createMaterialTopTabNavigator({
 const MainNavigator = createStackNavigator({
     Home: {
         screen: Tabs,
-    }
+    },
+    NewDeck: {
+        screen: NewDeck,
+    },
+    DeckSingle: {
+        screen: DeckSingle,
+    },
+    NewQuestion: {
+        screen: NewQuestion,
+    },
+    Quiz: {
+        screen: Quiz,
+    },
 })
 
 const store = createStore(
