@@ -4,13 +4,13 @@ import FlipCard from 'react-native-flip-card'
 import { white, black , lightGray, mediumGray } from '../utils/colors'
 
 class Quiz extends Component {
-
-    handleAnswer = (answerType, questions, score, key ) => {
+    handleAnswer = (answerType, questions, score, key) => {
 
         if (answerType) { score = score + 1 }
 
         if ((key + 1) === questions.length) {
-            this.props.navigation.navigate('QuizResult', { score, length: questions.length });
+            const { deckKey } = this.props.navigation.state.params;
+            this.props.navigation.navigate('QuizResult', { score, length: questions.length, deckKey });
         } else {
             this.props.navigation.navigate('Quiz', { questions, score, key: key + 1 });
         }
@@ -58,6 +58,8 @@ class Quiz extends Component {
                 <View style={styles.hint}>
                     <Text style={styles.hintText}>
                         hint: tap card to show or hide answer
+                        {/* TODO: exchange for a button to flip the card
+                         */}
                     </Text>
                 </View>
 

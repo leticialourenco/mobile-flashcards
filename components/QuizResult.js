@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
+import * as deckActions from '../actions'
 import { mediumGray, lightGray } from '../utils/colors'
 
 class QuizResult extends Component {
+    componentWillMount () {
+        this.props.actions.getDecks();
+    }
+
     render() {
-        const { score, length } = this.props.navigation.state.params;
+        const { score, length, deckKey } = this.props.navigation.state.params;
+        const { decks } = this.props;
 
         return (
             <View style={styles.container}>
@@ -25,9 +32,16 @@ class QuizResult extends Component {
 
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => this.props.navigation.navigate('DeckList')}
+                    onPress={() => this.props.navigation.navigate('Quiz', { questions: decks[deckKey].questions, score: 0, key: 0, deckKey })}
                 >
-                    <Text>Back to decks</Text>
+                    <Text>Restart Quiz</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => this.props.navigation.navigate('DeckSingle', { deckKey })}
+                >
+                    <Text>Back to Deck</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -82,4 +96,19 @@ const styles = StyleSheet.create({
     }
 })
 
-export default QuizResult
+
+function mapStateToProps (state) {
+    return {
+        decks: state.decks
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        actions: {
+            getDecks: () => dispatch(deckActions.getDecks())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(QuizResult)
