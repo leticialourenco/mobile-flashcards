@@ -4,6 +4,10 @@ import FlipCard from 'react-native-flip-card'
 import { white, black , lightGray, mediumGray } from '../utils/colors'
 
 class Quiz extends Component {
+    state = {
+        flipStatus: false
+    }
+
     handleAnswer = (answerType, questions, score, key) => {
 
         if (answerType) { score = score + 1 }
@@ -12,6 +16,7 @@ class Quiz extends Component {
             const { deckKey } = this.props.navigation.state.params;
             this.props.navigation.navigate('QuizResult', { score, length: questions.length, deckKey });
         } else {
+            this.setState({ flipStatus: false });
             this.props.navigation.navigate('Quiz', { questions, score, key: key + 1 });
         }
 
@@ -19,8 +24,15 @@ class Quiz extends Component {
          */
     }
 
+    flipCard = () => {
+        !(this.state.flipStatus)?
+              this.setState({ flipStatus: true })
+            : this.setState({ flipStatus: false })
+    }
+
     render() {
         const { questions, key, score } = this.props.navigation.state.params;
+        const { flipStatus } = this.state;
 
         return (
             <ScrollView style={styles.container}>
@@ -36,10 +48,10 @@ class Quiz extends Component {
                         perspective={1000}
                         flipHorizontal={true}
                         flipVertical={false}
-                        alignHeight={true}
-                        alignWidth={true}
-                        flip={false}
-                        clickable={true}
+                        alignHeight={false}
+                        alignWidth={false}
+                        flip={flipStatus}
+                        clickable={false}
                     >
                         <View style={styles.card}>
                             <Text style={styles.face}>
@@ -55,13 +67,15 @@ class Quiz extends Component {
                     </FlipCard>
                 </View>
 
-                <View style={styles.hint}>
-                    <Text style={styles.hintText}>
-                        hint: tap card to show or hide answer
-                        {/* TODO: exchange for a button to flip the card
-                         */}
+                <TouchableOpacity
+                    style={styles.flipButton}
+                    onPress={ () => { this.flipCard() }}
+                >
+                    <Text style={styles.flipText}>
+                        show
+                        { !(flipStatus)? ' answer' : ' question' }
                     </Text>
-                </View>
+                </TouchableOpacity>
 
 
                 <TouchableOpacity
@@ -93,20 +107,17 @@ const styles = StyleSheet.create({
         paddingRight: 20,
     },
     flipCard: {
-        minHeight: 200,
         marginTop: 30,
-        marginBottom: -235,
+        marginBottom: 30,
         borderWidth: 0,
+        height: 0,
     },
     card: {
-        flex: 1,
+        height: 280,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        paddingLeft: 15,
-        paddingRight: 15,
-        paddingTop: 30,
-        paddingBottom: 30,
+        padding: 15,
         borderRadius: 5,
         borderWidth: 0,
         backgroundColor: black,
@@ -147,13 +158,12 @@ const styles = StyleSheet.create({
         shadowRadius: 2,
         shadowOpacity: .2,
     },
-    hint: {
+    flipButton: {
         marginBottom: 30,
         alignItems: 'center',
-        opacity: .5,
     },
-    hintText: {
-        fontWeight: 'light',
+    flipText: {
+        fontWeight: 'bold',
         color: mediumGray,
     }
 })
