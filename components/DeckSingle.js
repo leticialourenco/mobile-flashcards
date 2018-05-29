@@ -14,8 +14,8 @@ class DeckSingle extends Component {
                 </Text>
 
                 <Text style={styles.counter}>
-                    { questions.length }
-                    { questions.length > 1 ? ' questions' : ' question' }
+                    { questions.length > 0 ? `${questions.length}` : 'no' }
+                    { questions.length !== 1 ? ' questions' : ' question' }
                 </Text>
 
                 <TouchableOpacity
@@ -25,12 +25,24 @@ class DeckSingle extends Component {
                     <Text>Add a Question</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Quiz', { questions: questions , score: 0, key: 0, deckKey: title })}
-                    style={styles.button}
-                >
-                    <Text>Start Quiz</Text>
-                </TouchableOpacity>
+                { (questions.length > 0) ?
+                    <TouchableOpacity
+                        onPress={() => this.props.navigation.navigate('Quiz', { questions: questions , score: 0, key: 0, deckKey: title })}
+                        style={styles.button}
+                    >
+                        <Text>Start Quiz</Text>
+                    </TouchableOpacity>
+
+                    :
+
+                    <TouchableOpacity
+                        style={[styles.disabled,styles.button]}
+                        disabled={true}
+                    >
+                        <Text>Start Quiz</Text>
+                    </TouchableOpacity>
+                }
+
             </View>
         );
     }
@@ -67,6 +79,9 @@ const styles = StyleSheet.create({
         },
         shadowRadius: 2,
         shadowOpacity: .2,
+    },
+    disabled: {
+        opacity: .5,
     },
     counter: {
         marginBottom: 50,

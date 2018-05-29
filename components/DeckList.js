@@ -26,9 +26,9 @@ class DeckList extends Component {
 
                        <Text>
                            <Text style={styles.deckCounter}>
-                               { decks[key].questions.length }
+                               { decks[key].questions.length > 0 ? `${decks[key].questions.length}` : 'no' }
                            </Text>
-                           { decks[key].questions.length > 1 ? " questions" : " question"}
+                           { decks[key].questions.length !== 1 ? ' questions' : ' question'}
                        </Text>
                    </TouchableOpacity>
                )}
