@@ -4,31 +4,23 @@ import FlipCard from 'react-native-flip-card'
 import { white, black , lightGray, mediumGray } from '../utils/colors'
 
 class Quiz extends Component {
-    /* TODO: send/get quiz manager through props
-     * to facilitate going to the next step
-     */
-    quizManager = {
-        key: 0,
-        score: 0,
-    }
 
-    handleAnswer = (answerType) => {
-        /* TODO: add an extra point to keep score
-         */
-        if (answerType) { this.quizManager.score = this.quizManager.score + 1; }
+    handleAnswer = (answerType, questions, score, key ) => {
 
-        /* TODO: check if it's the last question of the deck,
-         * if so, call results view and log the score.
-         * if not, call next question and pass the deck, key+1, and score
-         */
+        if (answerType) { score = score + 1 }
+
+        if ((key + 1) === questions.length) {
+            this.props.navigation.navigate('QuizResult', { score, length: questions.length });
+        } else {
+            this.props.navigation.navigate('Quiz', { questions, score, key: key + 1 });
+        }
 
         /* TODO: cancel notifications for today
          */
     }
 
     render() {
-        const { questions } = this.props.navigation.state.params;
-        const { key } = this.quizManager;
+        const { questions, key, score } = this.props.navigation.state.params;
 
         return (
             <ScrollView style={styles.container}>
@@ -72,14 +64,14 @@ class Quiz extends Component {
 
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={this.handleAnswer(true)}
+                    onPress={() => { this.handleAnswer(true, questions, score, key)} }
                 >
                     <Text>Correct 👏</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={[styles.button, {marginBottom: 100}]}
-                    onPress={this.handleAnswer(false)}
+                    onPress={() => { this.handleAnswer(false, questions, score, key)} }
                 >
                     <Text>Incorrect 👎</Text>
                 </TouchableOpacity>

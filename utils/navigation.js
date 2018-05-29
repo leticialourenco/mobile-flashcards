@@ -6,6 +6,7 @@ import NewDeck from '../components/NewDeck'
 import DeckSingle from '../components/DeckSingle'
 import NewQuestion from '../components/NewQuestion'
 import Quiz from '../components/Quiz'
+import QuizResult from '../components/QuizResult'
 
 import { white, lightGray, mediumGray, black } from './colors'
 
@@ -100,6 +101,22 @@ const Navigation = createStackNavigator({
             headerStyle: {
                 backgroundColor: lightGray,
             },
+        }),
+    },
+    QuizResult: {
+        screen: QuizResult,
+        navigationOptions: ({
+            title: 'Result',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+                color: black,
+                fontSize: 17,
+            },
+            headerTintColor: black,
+            headerStyle: {
+                backgroundColor: lightGray,
+            },
+            headerLeft: null
         }),
     },
 })

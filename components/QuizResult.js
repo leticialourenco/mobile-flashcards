@@ -1,35 +1,33 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { mediumGray, lightGray } from '../utils/colors'
 
-import { lightGray, mediumGray } from '../utils/colors'
-
-class DeckSingle extends Component {
+class QuizResult extends Component {
     render() {
-        const { title, questions } = this.props.navigation.state.params;
+        const { score, length } = this.props.navigation.state.params;
 
         return (
             <View style={styles.container}>
                 <Text style={styles.titleText}>
-                    { title }
+                    SCORE
                 </Text>
 
-                <Text style={styles.counter}>
-                    { questions.length }
-                    { questions.length > 1 ? ' questions' : ' question' }
+                <Text style={styles.result}>
+                    { (score/length) * 100 }
+                    <Text style={styles.resultSign}>
+                        %
+                    </Text>
+                </Text>
+
+                <Text style={styles.message}>
+                { (((score/length) * 100) >= 90) ? 'congratulations! 🤩' : 'keep practicing! 👍' }
                 </Text>
 
                 <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('NewQuestion', { ...this.props.navigation.params })}
                     style={styles.button}
+                    onPress={() => this.props.navigation.navigate('DeckList')}
                 >
-                    <Text>Add a Question</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('Quiz', { questions: questions , score: 0, key: 0 })}
-                    style={styles.button}
-                >
-                    <Text>Start Quiz</Text>
+                    <Text>Back to decks</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -49,8 +47,22 @@ const styles = StyleSheet.create({
     titleText: {
         marginTop: 30,
         marginBottom: 10,
-        fontSize: 40,
+        fontSize: 14,
+        letterSpacing: 1,
+        fontWeight: '100',
+        opacity: .7,
+    },
+    result: {
+        marginBottom: 30,
+        fontSize: 35,
         fontWeight: 'bold',
+    },
+    resultSign: {
+        fontSize: 15,
+    },
+    message: {
+        fontWeight: 'bold',
+        marginBottom: 60,
     },
     button: {
         alignSelf: 'stretch',
@@ -67,10 +79,7 @@ const styles = StyleSheet.create({
         },
         shadowRadius: 2,
         shadowOpacity: .2,
-    },
-    counter: {
-        marginBottom: 50,
     }
 })
 
-export default DeckSingle
+export default QuizResult
