@@ -91,10 +91,6 @@ const styles = StyleSheet.create({
 })
 
 
-const mapStateToProps = (state) => {
-    return {}
-}
-
 function mapDispatchToProps (dispatch) {
     return {
         actions: {
@@ -103,4 +99,4 @@ function mapDispatchToProps (dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewQuestion)
+export default connect(null, mapDispatchToProps)(NewQuestion)

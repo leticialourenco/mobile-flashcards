@@ -2,7 +2,7 @@ import * as STORAGE from '../utils/api'
 
 export const GET_DECKS = 'GET_DECKS';
 export const SET_DECKS = 'SET_DECKS';
-export const SET_DECK = 'SET_DECK';
+export const ADD_DECK = 'ADD_DECK';
 export const ADD_QUESTION = 'ADD_QUESTION';
 
 export function getDecksAction (decks) {
@@ -25,18 +25,15 @@ export function setDecksAction (decks) {
         .then(response => dispatch(setDecksAction(response)))
 );
 
-export function setDeckAction (decks) {
+export function addDeckAction (title) {
     return {
-        type: SET_DECK,
-        decks
+        type: ADD_DECK,
+        title
     }
 } export const addDeck = (title) => dispatch => (
   STORAGE.addDeckTitle(title)
-      .then(response => dispatch(setDeckAction(response)))
+      .then(response => dispatch(addDeckAction(response)))
 );
-
-
-
 
 export function addQuestionAction ({ title, question }) {
     return {

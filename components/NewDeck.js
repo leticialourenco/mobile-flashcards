@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
     }
 })
 
-const mapStateToProps = (state) => { return {} }
 
 function mapDispatchToProps (dispatch) {
     return {
@@ -87,4 +86,4 @@ function mapDispatchToProps (dispatch) {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewDeck)
+export default connect(null, mapDispatchToProps)(NewDeck)
