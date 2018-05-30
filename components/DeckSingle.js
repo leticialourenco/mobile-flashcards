@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     titleText: {
         marginTop: 30,
         marginBottom: 10,
+        textAlign: 'center',
         fontSize: 40,
         fontWeight: 'bold',
     },

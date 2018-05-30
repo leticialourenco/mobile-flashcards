@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     deckTitle: {
+        textAlign: 'center',
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 10,

@@ -20,7 +20,7 @@ class QuizResult extends Component {
                 </Text>
 
                 <Text style={styles.result}>
-                    { (score/length) * 100 }
+                    { ((score/length) * 100).toFixed(0) }
                     <Text style={styles.resultSign}>
                         %
                     </Text>
