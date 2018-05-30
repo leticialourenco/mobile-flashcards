@@ -19,7 +19,7 @@ class DeckSingle extends Component {
                 </Text>
 
                 <TouchableOpacity
-                    onPress={() => this.props.navigation.navigate('NewQuestion', { ...this.props.navigation.params })}
+                    onPress={() => this.props.navigation.navigate('NewQuestion', { title })}
                     style={styles.button}
                 >
                     <Text>Add a Question</Text>

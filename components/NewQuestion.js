@@ -1,8 +1,25 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
+import * as deckActions from '../actions'
 import { lightGray, mediumGray } from '../utils/colors'
 
 class NewQuestion extends Component {
+    state = {
+        question: '',
+        answer: ''
+    }
+
+    submitNewQuestion = () => {
+        const data = {
+            title: this.props.navigation.state.params.title,
+            question: this.state
+        };
+        this.props.actions.addQuestion(data);
+        this.props.navigation.navigate('DeckSingle');
+        this.setState({ question: '', answer: '' });
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -11,8 +28,8 @@ class NewQuestion extends Component {
                 </Text>
                 <TextInput
                     style={styles.input}
-                    onChangeText={(text) => this.setState({text})}
-                    value={''}
+                    value={ this.state.question }
+                    onChangeText={ (question) => this.setState({ question }) }
                 />
 
                 <Text style={styles.label}>
@@ -20,12 +37,15 @@ class NewQuestion extends Component {
                 </Text>
                 <TextInput
                     style={styles.input}
-                    onChangeText={(text) => this.setState({text})}
-                    value={''}
+                    value={ this.state.answer }
+                    onChangeText={ (answer) => this.setState({ answer }) }
                 />
 
-                <TouchableOpacity style={styles.button}>
-                    <Text>Add to deck</Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={ () => { this.submitNewQuestion() }}
+                >
+                    <Text>Create Question</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -70,4 +90,17 @@ const styles = StyleSheet.create({
     }
 })
 
-export default NewQuestion
+
+const mapStateToProps = (state) => {
+    return {}
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        actions: {
+            addQuestion: ({ title, question }) => dispatch(deckActions.addQuestion({ title, question }))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewQuestion)

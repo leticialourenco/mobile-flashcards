@@ -12,12 +12,21 @@ export const setDecks = (decks) => {
 }
 
 export const addDeckTitle = (title) => {
-    return getDecks().then((newDeckList) => {
-        newDeckList.decks[title] = {questions: [], title};
+    return getDecks().then((data) => {
+        data.decks[title] = { questions: [], title };
 
-        AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(newDeckList))
+        AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data))
 
         return AsyncStorage.getItem(STORAGE_KEY)
+            .then(response => JSON.parse(response))
+    })
+}
+
+export const addCardToDeck = ({ title, question }) => {
+    return getDecks().then((data) => {
+        data.decks[title].questions.push(question);
+
+        AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data))
             .then(response => JSON.parse(response))
     })
 }
