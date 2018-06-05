@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { View, StatusBar } from 'react-native'
 import { Constants } from 'expo'
 
+import { setLocalNotification } from './utils/api'
 import Navigation from './utils/navigation'
 import initialDecks from './utils/initialDecks'
 import reducer from './reducers'
@@ -27,7 +28,8 @@ const store = createStore(
 
 export default class App extends React.Component {
     componentWillMount() {
-        store.dispatch(deckActions.setDecks({ decks: initialDecks }))
+        setLocalNotification();
+        store.dispatch(deckActions.setDecks({ decks: initialDecks }));
     }
 
     render() {

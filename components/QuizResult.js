@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { connect } from 'react-redux'
+import { clearLocalNotification, setLocalNotification } from '../utils/api'
 import * as deckActions from '../actions'
 import { mediumGray, lightGray } from '../utils/colors'
 
 class QuizResult extends Component {
     componentWillMount () {
+        clearLocalNotification()
+            .then(setLocalNotification);
+
         this.props.actions.getDecks();
     }
 

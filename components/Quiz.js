@@ -19,9 +19,6 @@ class Quiz extends Component {
             this.setState({ flipStatus: false });
             this.props.navigation.navigate('Quiz', { questions, score, key: key + 1 });
         }
-
-        /* TODO: cancel notifications for today
-         */
     }
 
     flipCard = () => {
