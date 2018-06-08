@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Keyboard } from 'react-native'
 import { connect } from 'react-redux'
 import * as deckActions from '../actions'
 import { mediumGray, lightGray } from '../utils/colors'
@@ -13,6 +13,7 @@ class NewDeck extends Component {
         this.props.actions.addDeck(this.state.title);
         this.props.navigation.navigate('DeckList');
         this.setState({ title: '' });
+        Keyboard.dismiss();
     }
 
     render() {

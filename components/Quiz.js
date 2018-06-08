@@ -114,6 +114,7 @@ const styles = StyleSheet.create({
     },
     card: {
         height: 280,
+        width: 330,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',

@@ -17,7 +17,6 @@ class NewQuestion extends Component {
         };
         this.props.actions.addQuestion(data);
         this.props.navigation.navigate('DeckSingle');
-        this.setState({ question: '', answer: '' });
     }
 
     render() {
