@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
     deckContainer: {
         flex: 1,
         backgroundColor: white,
-        alignItems: 'center',
         paddingTop: 20,
     },
     deckCard: {

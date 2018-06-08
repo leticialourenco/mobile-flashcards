@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        justifyContent: 'top',
+        justifyContent: 'flex-start',
         paddingTop: 50,
         paddingLeft: 20,
         paddingRight: 20,
@@ -69,7 +69,6 @@ const styles = StyleSheet.create({
         height: 40,
         alignSelf: 'stretch',
         borderColor: mediumGray,
-        borderBottomStyle: 'solid',
         borderBottomWidth: '.3',
         marginBottom: 50,
     },

@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#fff',
         alignItems: 'center',
-        justifyContent: 'top',
+        justifyContent: 'flex-start',
         paddingTop: 50,
         paddingLeft: 20,
         paddingRight: 20,

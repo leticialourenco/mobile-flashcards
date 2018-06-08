@@ -32,7 +32,7 @@ class Quiz extends Component {
         const { flipStatus } = this.state;
 
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView contentContainerStyle={styles.center} style={styles.container}>
 
                 <Text style={{ textAlign: 'center' }}>
                     Question { key + 1 } of { questions.length }
@@ -46,7 +46,7 @@ class Quiz extends Component {
                         flipHorizontal={true}
                         flipVertical={false}
                         alignHeight={false}
-                        alignWidth={false}
+                        alignWidth={true}
                         flip={flipStatus}
                         clickable={false}
                     >
@@ -97,13 +97,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'top',
         paddingTop: 30,
         paddingLeft: 20,
         paddingRight: 20,
     },
+    center: {
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
     flipCard: {
+        alignSelf: 'stretch',
         marginTop: 30,
         marginBottom: 30,
         borderWidth: 0,
