@@ -13,6 +13,7 @@ class Quiz extends Component {
         if (answerType) { score = score + 1 }
 
         if ((key + 1) === questions.length) {
+            this.setState({ flipStatus: false });
             const { deckKey } = this.props.navigation.state.params;
             this.props.navigation.navigate('QuizResult', { score, length: questions.length, deckKey });
         } else {
