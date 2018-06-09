@@ -1,11 +1,18 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-
+import { connect } from 'react-redux'
+import * as deckActions from '../actions'
 import { lightGray, mediumGray } from '../utils/colors'
 
 class DeckSingle extends Component {
+
+    componentWillMount() {
+        this.props.actions.getDecks();
+    }
+
     render() {
-        const { title, questions } = this.props.navigation.state.params;
+        const deckKey = this.props.navigation.state.params;
+        const { title, questions } = this.props.decks[deckKey];
 
         return (
             <View style={styles.container}>
@@ -89,4 +96,18 @@ const styles = StyleSheet.create({
     }
 })
 
-export default DeckSingle
+function mapStateToProps (state) {
+    return {
+        decks: state.decks
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        actions: {
+            getDecks: () => dispatch(deckActions.getDecks())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeckSingle)

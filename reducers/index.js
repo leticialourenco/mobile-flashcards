@@ -13,9 +13,16 @@ function decks (state = { decks: {} }, action) {
             return action.title;
 
         case ADD_QUESTION:
-            const nextState = state;
-            nextState.decks[action.title].questions.push(action.question);
-            return nextState;
+            return {
+                ...state,
+                decks: {
+                    ...state.decks,
+                    [action.title] : {
+                        ...state.decks[action.title],
+                        questions: state.decks[action.title].questions.concat([action.question])
+                    },
+                }
+            };
 
         default:
             return state;

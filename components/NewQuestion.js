@@ -88,7 +88,6 @@ const styles = StyleSheet.create({
     }
 })
 
-
 function mapDispatchToProps (dispatch) {
     return {
         actions: {

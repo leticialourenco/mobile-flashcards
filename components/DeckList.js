@@ -5,7 +5,8 @@ import * as deckActions from '../actions'
 import { lightGray, white, mediumGray } from '../utils/colors'
 
 class DeckList extends Component {
-    componentWillMount () {
+
+    componentWillMount() {
         this.props.actions.getDecks();
     }
 
@@ -17,7 +18,7 @@ class DeckList extends Component {
                 { Object.keys(decks).map((key) =>
                    <TouchableOpacity
                        key={key}
-                       onPress={() => this.props.navigation.navigate('DeckSingle', { ...decks[key] })}
+                       onPress={() => this.props.navigation.navigate('DeckSingle', decks[key].title)}
                        style={styles.deckCard}
                    >
                        <Text style={styles.deckTitle}>

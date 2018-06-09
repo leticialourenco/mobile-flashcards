@@ -43,7 +43,7 @@ class QuizResult extends Component {
 
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => this.props.navigation.navigate('DeckSingle', { deckKey })}
+                    onPress={() => this.props.navigation.navigate('DeckSingle')}
                 >
                     <Text>Back to Deck</Text>
                 </TouchableOpacity>
